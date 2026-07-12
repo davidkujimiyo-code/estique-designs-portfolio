@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Mail, MessageSquare, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 
 
@@ -128,6 +129,12 @@ export const Contact: React.FC<ContactProps> = ({ selectedService }) => {
       }
 
       setIsSubmitted(true);
+      setTimeout(() => {
+        const contactSection = document.getElementById('contact');
+        if (contactSection) {
+          contactSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }, 100);
       setFormData({
         name: '',
         email: '',
@@ -242,21 +249,56 @@ export const Contact: React.FC<ContactProps> = ({ selectedService }) => {
             <div className="p-8 md:p-12 rounded-3xl border border-zinc-150 bg-[#fbfbfb] dark:bg-[#111111] dark:border-zinc-900 shadow-xl relative overflow-hidden">
               {/* Successful Wipe */}
               {isSubmitted ? (
-                <div className="py-16 flex flex-col items-center justify-center text-center">
-                  <CheckCircle2 size={56} className="text-brand-emerald dark:text-brand-gold mb-6 animate-bounce" />
-                  <h3 className="font-heading text-2xl font-extrabold text-zinc-900 dark:text-white mb-2">
-                    Inquiry Received!
-                  </h3>
-                  <p className="font-body text-xs text-zinc-500 dark:text-zinc-400 font-light max-w-sm leading-relaxed mb-6">
-                    Thank you for booking with Estique. Esther will review your project details and get back to you within 24 hours.
-                  </p>
-                  <button
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, ease: 'easeOut' }}
+                  className="py-16 flex flex-col items-center justify-center text-center"
+                >
+                  <motion.div
+                    initial={{ scale: 0, rotate: -180 }}
+                    animate={{ scale: 1, rotate: 0 }}
+                    transition={{ type: 'spring', stiffness: 200, damping: 15, delay: 0.15 }}
+                  >
+                    <CheckCircle2 size={56} className="text-brand-emerald dark:text-brand-gold mb-6 filter drop-shadow-[0_0_8px_rgba(201,162,39,0.25)]" />
+                  </motion.div>
+                  
+                  <motion.h3
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: 0.3 }}
+                    className="font-heading text-2xl font-extrabold text-zinc-900 dark:text-white mb-4"
+                  >
+                    Thank You for Your Enquiry!
+                  </motion.h3>
+                  
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: 0.45 }}
+                    className="font-body text-xs text-zinc-600 dark:text-zinc-400 font-light max-w-md leading-relaxed mb-8 space-y-3"
+                  >
+                    <p className="font-semibold text-zinc-850 dark:text-zinc-200">
+                      We've successfully received your project request.
+                    </p>
+                    <p>
+                      Esther will personally review your submission and contact you within 24–48 hours to discuss your project in more detail.
+                    </p>
+                    <p className="text-zinc-500 dark:text-zinc-500 text-[11px] italic">
+                      Please keep an eye on your email for your confirmation message and next steps.
+                    </p>
+                  </motion.div>
+                  
+                  <motion.button
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.4, delay: 0.6 }}
                     onClick={() => setIsSubmitted(false)}
-                    className="px-6 py-2.5 rounded-full border border-zinc-200 dark:border-zinc-800 font-heading text-[10px] uppercase tracking-wider font-extrabold text-zinc-700 dark:text-zinc-300 hover:border-brand-emerald dark:hover:border-brand-gold transition-all cursor-pointer"
+                    className="px-6 py-2.5 rounded-full border border-zinc-200 dark:border-zinc-800 font-heading text-[10px] uppercase tracking-wider font-extrabold text-zinc-700 dark:text-zinc-300 hover:border-brand-emerald dark:hover:border-brand-gold hover:text-brand-emerald dark:hover:text-brand-gold transition-all cursor-pointer hover:scale-[1.03] active:scale-[0.97]"
                   >
                     Reset Form
-                  </button>
-                </div>
+                  </motion.button>
+                </motion.div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

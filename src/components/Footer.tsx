@@ -496,9 +496,21 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Copyright Layout footer bar */}
-        <div className="w-full pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+        <div className="w-full pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left border-t border-zinc-200/30 dark:border-zinc-900/40 mt-4">
           <p className="font-body text-[10px] text-zinc-500 dark:text-zinc-500 font-medium">
             &copy; 2026 Estique Designs.
+          </p>
+          <p className="font-body text-[10px] text-zinc-500 dark:text-zinc-500 font-light">
+            Designed & Developed by{' '}
+            <a
+              href="https://dkdigitalstudio.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-zinc-700 hover:text-brand-emerald dark:text-zinc-400 dark:hover:text-brand-gold transition-colors duration-300 relative group inline-block"
+            >
+              DK Digital Studio
+              <span className="absolute -bottom-0.5 left-0 w-0 h-[1px] bg-brand-emerald dark:bg-brand-gold group-hover:w-full transition-all duration-300" />
+            </a>
           </p>
           <p className="font-body text-[10px] text-zinc-450 dark:text-zinc-500 font-light tracking-widest uppercase">
             Designed with passion and creative excellence.

@@ -11,4 +11,6 @@
 - [x] Refactored `api/booking.ts` to leverage the standard Web API runtime (removing `res.setHeader`, `res.status`, `res.send` dependencies) to match Vercel Edge Function specifications
 - [x] Updated Vite dev server middleware to map incoming Node.js streams to standard `Request` and `Response` objects
 - [x] Corrected Cloudflare Turnstile verification parameters (siteverify endpoint, URL-encoded payload formatting, and diagnostic header logging)
+- [x] Updated booking success screen copy, added Framer Motion animations for fade-ins and checkmarks, and configured smooth centering scroll handlers
+- [x] Added "Designed & Developed by DK Digital Studio" link to footer bottom with subtle gold hover and underline animations
 - [x] Verify TypeScript and Vite production build builds successfully
