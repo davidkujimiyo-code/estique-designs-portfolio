@@ -1,32 +1,14 @@
-# Estique Designs Portfolio Website Checklist
+# Estique Designs Booking System Integration checklist
 
-- [x] Initialize Vite React TypeScript project
-- [x] Install dependencies (`framer-motion`, `lucide-react`, `@tailwindcss/vite`)
-- [x] Configure Tailwind CSS v4 in `src/index.css`
-- [x] Copy headshot and logo assets to `src/assets`
-- [x] Revert Brand Identity collage layout and rollback database back to stable 37 original projects
-- [x] Delete `logoSlicer.ts` and `ClientLogosMarquee.tsx` helpers
-- [x] Remove scrolling trust logo wall and collage category hero showcase from `Portfolio.tsx`
-- [x] Replace brand logo globally with the new official gold monogram variant (`media__1783706426406.png`)
-- [x] Trim transparent borders on the full logo asset (`logo-full-cropped.png`) using custom Node.js canvas cropping script
-- [x] Integrate new standalone EU monogram logo (`media__1783710920980.png`), cropping it to a square with an 85% visual occupancy ratio, saving it to `logo-monogram-only.png`
-- [x] Scale brand logo dimensions responsively (Navbar monogram: h-10 sm:h-12 md:h-14, Preloader: h-10 sm:h-14)
-- [x] Redesign footer left column: split into a split horizontal sub-grid layout (`md:grid-cols-12`) placing the optimized full logo (`h-20 sm:h-28 md:h-36`) next to a tightly stacked details block (description, tag pills, CTA button, trust tagline)
-- [x] Integrate Back-to-Top trigger button centered directly on the top border line of the footer
-- [x] Crop monogram-only favicons (16x16, 32x32, 48x48, 180x180, 192x192, 512x512) using monogram bounds and write them to the `public/` folder
-- [x] Update `index.html` head tags to point to the new monogram favicons
-- [x] Make Navbar logo link clickable to scroll smoothly to `#home` (Hero section)
-- [x] Make Footer logo link clickable to scroll smoothly back to the top of the page
-- [x] Add scale and brightness transitions on brand logo hover states
-- [x] Rebuild Testimonials section into a premium Client Showcase grid showing real client projects (Damiglow, Lois Amarachi, IBK, Pastors Owolabi & Kehinde, Funmi Alimi) with category pills, completed projects, stats banner, mobile swipe support, and spring transitions
-- [x] Integrate logo collage collection image (`logo-collage.jpg`) as a featured hero showcase grid block inside the Portfolio category filters (active under "Logo Design" and "Brand Identity" filters) with strategic brand copywriting, logo listing, metrics, and micro-animations
-- [x] Copy uploaded CV PDF (`media__1783718783402.pdf`) to `/public` directory as `Esther_Udoh_CV.pdf`
-- [x] Create Career Profile component section (`CareerProfile.tsx`) featuring milestones highlight cards, gold callout quote, pure CSS document mockup with scrollable PDF iframe popup viewer, responsive order alignments, and direct download triggers
-- [x] Render `<CareerProfile />` immediately before Contact section inside `App.tsx`
-- [x] Update Navbar and Footer links menu to include Profile (`#career`), map items to short premium creative labels (Studio, Work, Reviews, Profile), re-align grid columns, and add 'career' to App.tsx scroll detector
-- [x] Revamp theme system: persistence with `localStorage`, OS preference auto-detection, dynamic `<meta name="theme-color">` updates, global transition parameters in `index.css`, adaptive preloader themes, light mode warm surfaces, and premium branded pill toggle layout `[ 🌙 Dark ] [ ☀️ Light ]` with spring sliders and gold halos
-- [x] Override Tailwind v4's media-only dark mode by defining `@custom-variant dark (&:where(.dark, .dark *))` to support manual class-based toggling
-- [x] Redesign mobile footer (below 768px): center top branding header (enlarged full logo `h-24`, statement copy, service pills, single-play gold shimmer CTA link, lifted social badges) and stack single-open collapsible accordion tabs (Navigation, Services, Contact Details) with rotating gold chevrons and glassmorphic panels
-- [x] Replace footer wordmark logo with the standalone gold EU monogram (`logo-monogram-only.png`), scaling it to `120-140px` with a subtle gold hover glow, splitting the brand statement text to make the first sentence `18-20px` and semibold for better height balancing on desktop
-- [x] Verify project builds and compiles cleanly
-- [x] Generate walkthrough validation report
+- [x] Install backend dependencies (`@supabase/supabase-js`, `resend`)
+- [x] Add Cloudflare Turnstile script into `index.html`
+- [x] Create Vercel Serverless Function `/api/booking.ts` with validation, rate limiting, and email dispatching
+- [x] Modify `Contact.tsx` component to support Turnstile verification, submitting requests to backend, and loader/success states
+- [x] Rewrite `api/booking.ts` to output exact JSON structure (`success: true/false`, etc.) on all branches, log specific items to console, and perform strict environmental validation
+- [x] Update frontend logic in `Contact.tsx` to trap parsing/network errors and map them to friendly alerts
+- [x] Configured custom Vite dev server handler to execute serverless handler logic natively in local mode
+- [x] Create `.env` file containing public Turnstile test keys and placeholder settings
+- [x] Refactored `api/booking.ts` to leverage the standard Web API runtime (removing `res.setHeader`, `res.status`, `res.send` dependencies) to match Vercel Edge Function specifications
+- [x] Updated Vite dev server middleware to map incoming Node.js streams to standard `Request` and `Response` objects
+- [x] Corrected Cloudflare Turnstile verification parameters (siteverify endpoint, URL-encoded payload formatting, and diagnostic header logging)
+- [x] Verify TypeScript and Vite production build builds successfully

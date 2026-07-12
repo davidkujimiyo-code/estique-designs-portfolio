@@ -70,26 +70,26 @@ export const portfolioData: PortfolioItem[] = [
   },
   {
     "id": "proj-logo-artboard8",
-    "title": "Estique Branding Logomark",
-    "category": "Logo Design",
+    "title": "Dami Glow Brand Visual System",
+    "category": "Brand Identity",
     "tags": [
-      "Logo Design",
-      "Vector",
-      "Brand Identity"
+      "Brand Identity",
+      "Social Media",
+      "Flyer Design"
     ],
-    "description": "Custom corporate monogram design showcasing vector grid lines, golden luxury textures, and precise typography alignment to create a premium brand mark.",
-    "imageUrl": "/portfolio/Artboard 8.png",
+    "description": "Premium brand visual system and promotional designs created for Dami Glow, featuring clean layouts, custom typography, and warm aesthetic social media creatives.",
+    "imageUrl": "/portfolio/brand-collage-3.jpg",
     "link": "https://www.pinterest.com/estheru0974/_created/",
     "tools": [
-      "Adobe Illustrator",
+      "Adobe Photoshop",
       "Figma",
       "Brand Guidelines"
     ],
-    "problem": "The goal was to present a corporate mark that evokes heritage, elegance, and premium positioning in a competitive marketplace.",
-    "solution": "Crafted a custom vector monogram layout using clean serif stems and gold foil texture rendering.",
-    "clientOutcome": "Delivered a high-end brand identity asset suitable for stationery, signage, and digital branding.",
+    "problem": "The client required cohesive, luxury-positioned flyers for relationship and marriage talking sessions to boost digital engagement.",
+    "solution": "Engineered elegant grid templates utilizing gold and rose-pink accents, combined with balanced typography systems.",
+    "clientOutcome": "Enhanced brand credibility and audience reach, establishing Dami Glow as a leading voice in relationship coaching.",
     "gallery": [
-      "/portfolio/Artboard 8.png"
+      "/portfolio/brand-collage-3.jpg"
     ],
     "boardName": "Created Portfolio",
     "isFeatured": true
@@ -122,9 +122,9 @@ export const portfolioData: PortfolioItem[] = [
   {
     "id": "proj-brand-dflourish",
     "title": "D'Flourish Leather Brand System",
-    "category": "Brand Identity",
+    "category": "Corporate Branding",
     "tags": [
-      "Brand Identity",
+      "Corporate Branding",
       "Brand Guidelines",
       "Corporate Identity"
     ],
@@ -581,26 +581,26 @@ export const portfolioData: PortfolioItem[] = [
   },
   {
     "id": "proj-brand-premium",
-    "title": "Premium Luxury Concept Tag",
+    "title": "Evritin Loiza 360 Branding System",
     "category": "Brand Identity",
     "tags": [
       "Brand Identity",
-      "Vector Guidelines",
-      "Concept"
+      "Social Media",
+      "Promotional"
     ],
-    "description": "Brand design guidelines presenting luxury color matches, metallic accents, and elegant logotype alignments for a premium creative partner portfolio.",
-    "imageUrl": "/portfolio/premium and luxury together in one design.jfif",
+    "description": "Comprehensive visual brand system for Evritin Loiza 360, showcasing ushering campaigns, perfume branding, healthy drinks packaging layouts, and social media flyers.",
+    "imageUrl": "/portfolio/brand-collage-1.jpg",
     "link": "https://www.pinterest.com/estheru0974/_created/",
     "tools": [
+      "Adobe Photoshop",
       "Adobe Illustrator",
-      "Figma",
-      "Brand Guidelines"
+      "Brand Identity"
     ],
-    "problem": "The studio needed a visual board demonstrating how luxury visual elements interact in a single grid layout.",
-    "solution": "Assembled gold foil details, dark charcoal backgrounds, and fine script lettering inside a structural guide board.",
-    "clientOutcome": "Served as a key visual reference for clients seeking premium, high-end branding systems.",
+    "problem": "The business needed to unify their diverse operations under a single premium aesthetic for their marketing materials.",
+    "solution": "Created a royal purple and gold brand identity system applied across packaging, flyers, and ushering services.",
+    "clientOutcome": "Streamlined marketing visuals and presented a unified, high-end presence that attracted premium clientele.",
     "gallery": [
-      "/portfolio/premium and luxury together in one design.jfif"
+      "/portfolio/brand-collage-1.jpg"
     ],
     "boardName": "Created Portfolio",
     "isFeatured": false
@@ -962,5 +962,31 @@ export const portfolioData: PortfolioItem[] = [
     ],
     "boardName": "Book Cover Designs",
     "isFeatured": true
+  },
+  {
+    "id": "proj-brand-logo-collection",
+    "title": "Estique Designs Brand Logo Collection",
+    "category": "Brand Identity",
+    "tags": [
+      "Brand Identity",
+      "Logo Design",
+      "Vector"
+    ],
+    "description": "A curated collection of professional logos and custom brand marks created for diverse businesses, ministries, and creative entrepreneurs.",
+    "imageUrl": "/portfolio/brand-collage-2.jpg",
+    "link": "https://www.pinterest.com/estheru0974/_created/",
+    "tools": [
+      "Adobe Illustrator",
+      "Figma",
+      "Creative Direction"
+    ],
+    "problem": "The studio wanted a single showcase piece summarizing their extensive portfolio of custom logo creations.",
+    "solution": "Organized a grid-based branding sheet displaying 15+ vector marks alongside professional headshots.",
+    "clientOutcome": "Immediately demonstrates creative breadth and design authority to potential branding clients.",
+    "gallery": [
+      "/portfolio/brand-collage-2.jpg"
+    ],
+    "boardName": "Created Portfolio",
+    "isFeatured": false
   }
 ];

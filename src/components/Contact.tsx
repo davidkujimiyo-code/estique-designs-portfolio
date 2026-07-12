@@ -3,6 +3,12 @@ import { Mail, MessageSquare, ArrowRight, CheckCircle2 } from 'lucide-react';
 
 
 
+declare global {
+  interface Window {
+    turnstile: any;
+  }
+}
+
 interface ContactProps {
   selectedService: string;
 }
@@ -18,6 +24,9 @@ export const Contact: React.FC<ContactProps> = ({ selectedService }) => {
   });
 
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [turnstileToken, setTurnstileToken] = useState<string>('');
   const [errors, setErrors] = useState<{ name?: string; email?: string }>({});
 
   // Sync selectedService from props
@@ -31,6 +40,43 @@ export const Contact: React.FC<ContactProps> = ({ selectedService }) => {
       }
     }
   }, [selectedService]);
+
+  // Cloudflare Turnstile initialization logic
+  useEffect(() => {
+    const initTurnstile = () => {
+      if (window.turnstile) {
+        try {
+          window.turnstile.render('#turnstile-container', {
+            sitekey: import.meta.env.VITE_TURNSTILE_SITE_KEY || '1x00000000000000000000AA',
+            callback: (token: string) => {
+              setTurnstileToken(token);
+              setSubmitError(null);
+            },
+            'error-callback': () => {
+              setSubmitError('Spam verification failed. Please try again.');
+              setTurnstileToken('');
+            },
+            'expired-callback': () => {
+              setTurnstileToken('');
+              setSubmitError('Spam check expired. Please verify again.');
+            }
+          });
+        } catch (e) {
+          console.warn('Turnstile widget render error:', e);
+        }
+      } else {
+        const timer = setTimeout(initTurnstile, 500);
+        return () => clearTimeout(timer);
+      }
+    };
+
+    if (!isSubmitted) {
+      const cleanup = initTurnstile();
+      return () => {
+        if (typeof cleanup === 'function') cleanup();
+      };
+    }
+  }, [isSubmitted]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -50,30 +96,74 @@ export const Contact: React.FC<ContactProps> = ({ selectedService }) => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (validate()) {
-      // Simulate API submit
-      console.log('Form data submitted:', formData);
+    setSubmitError(null);
+
+    if (!validate()) return;
+
+    if (!turnstileToken) {
+      setSubmitError('Please complete the security check.');
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch('/api/booking', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          turnstileToken,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Something went wrong. Please try again.');
+      }
+
       setIsSubmitted(true);
-      setTimeout(() => {
-        setIsSubmitted(false);
-        setFormData({
-          name: '',
-          email: '',
-          projectType: 'Brand Identity Design',
-          budget: '$500 - $1,000',
-          timeline: '1 - 2 Weeks',
-          message: '',
-        });
-      }, 5000);
+      setFormData({
+        name: '',
+        email: '',
+        projectType: 'Brand Identity Design',
+        budget: '$500 - $1,000',
+        timeline: '1 - 2 Weeks',
+        message: '',
+      });
+      setTurnstileToken('');
+    } catch (err: any) {
+      console.error('Booking submission failed:', err);
+      
+      const isTechnical = 
+        err instanceof SyntaxError || 
+        err.message?.includes('JSON') || 
+        err.message?.includes('fetch') ||
+        err.message?.includes('Failed to execute');
+        
+      const friendlyError = isTechnical
+        ? "We couldn't submit your booking right now. Please try again in a few moments."
+        : (err.message || 'An unexpected error occurred during submission.');
+        
+      setSubmitError(friendlyError);
+      
+      if (window.turnstile) {
+        window.turnstile.reset();
+      }
+      setTurnstileToken('');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   const handleWhatsAppChat = () => {
-    window.open('https://wa.me/2349133373741', '_blank');
+    window.open('https://wa.me/2349027966779', '_blank');
   };
-
 
   return (
     <section
@@ -132,7 +222,6 @@ export const Contact: React.FC<ContactProps> = ({ selectedService }) => {
                 </div>
               </button>
             </div>
-
 
             {/* Styled Google Map Placeholder */}
             <div className="rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-850 h-52 relative flex items-center justify-center bg-zinc-100 dark:bg-zinc-900 shadow-sm">
@@ -302,12 +391,42 @@ export const Contact: React.FC<ContactProps> = ({ selectedService }) => {
                     />
                   </div>
 
+                  {/* Turnstile Antispam Security Check */}
+                  <div className="flex justify-center items-center py-1">
+                    <div id="turnstile-container" className="cf-turnstile"></div>
+                  </div>
+
+                  {/* Submit Error alert */}
+                  {submitError && (
+                    <div className="p-4 rounded-xl border border-red-500/30 bg-red-500/10 text-red-500 text-xs font-body text-left flex items-start gap-2 animate-shake">
+                      <span className="mt-0.5">⚠️</span>
+                      <div>
+                        <p className="font-semibold">Booking Request Failed</p>
+                        <p className="mt-0.5">{submitError}</p>
+                      </div>
+                    </div>
+                  )}
+
                   {/* Submit Button */}
                   <button
                     type="submit"
-                    className="w-full px-8 py-4 rounded-xl bg-brand-black text-white hover:bg-brand-emerald dark:bg-white dark:text-brand-black dark:hover:bg-brand-gold font-heading text-xs tracking-wider uppercase font-bold flex items-center justify-center gap-2 hover:scale-[1.01] active:scale-99 transition-all duration-300 shadow-md shadow-brand-black/15 interactive-hover"
+                    disabled={isSubmitting}
+                    className={`w-full px-8 py-4 rounded-xl font-heading text-xs tracking-wider uppercase font-bold flex items-center justify-center gap-2 transition-all duration-300 shadow-md shadow-brand-black/15 interactive-hover ${
+                      isSubmitting
+                        ? 'bg-zinc-300 text-zinc-500 dark:bg-zinc-800 dark:text-zinc-500 cursor-not-allowed'
+                        : 'bg-brand-black text-white hover:bg-brand-emerald dark:bg-white dark:text-brand-black dark:hover:bg-brand-gold hover:scale-[1.01] active:scale-99'
+                    }`}
                   >
-                    Submit Booking Request <ArrowRight size={14} />
+                    {isSubmitting ? (
+                      <>
+                        <span className="w-3.5 h-3.5 border-2 border-zinc-500 border-t-transparent rounded-full animate-spin"></span>
+                        Processing Booking Request...
+                      </>
+                    ) : (
+                      <>
+                        Submit Booking Request <ArrowRight size={14} />
+                      </>
+                    )}
                   </button>
                 </form>
               )}
