@@ -1,6 +1,7 @@
 export interface PortfolioItem {
   id: string;
   title: string;
+  author?: string;
   category: string;
   tags: string[];
   description: string;
@@ -75,7 +76,7 @@ export const portfolioData: PortfolioItem[] = [
     "tags": [
       "Brand Identity Design",
       "Social Media Design",
-      "Marketing Campaign Design"
+      "Event Design"
     ],
     "description": "Premium brand visual system and promotional designs created for Dami Glow, featuring clean layouts, custom typography, and warm aesthetic social media creatives.",
     "imageUrl": "/portfolio/brand-collage-3.jpg",
@@ -175,9 +176,9 @@ export const portfolioData: PortfolioItem[] = [
   {
     "id": "proj-event-couples",
     "title": "Couples' Hangout Event Flyer",
-    "category": "Marketing Campaign Design",
+    "category": "Event Design",
     "tags": [
-      "Marketing Campaign Design",
+      "Event Design",
       "Event Flyers",
       "Social Media Design"
     ],
@@ -330,9 +331,9 @@ export const portfolioData: PortfolioItem[] = [
   {
     "id": "proj-flyer-game",
     "title": "Game Day Sports Event Flyer",
-    "category": "Marketing Campaign Design",
+    "category": "Event Design",
     "tags": [
-      "Marketing Campaign Design",
+      "Event Design",
       "Event Flyers",
       "Social Media Design"
     ],
@@ -356,9 +357,9 @@ export const portfolioData: PortfolioItem[] = [
   {
     "id": "proj-social-hair",
     "title": "Luxury Salon Promotional Layout",
-    "category": "Marketing Campaign Design",
+    "category": "Event Design",
     "tags": [
-      "Marketing Campaign Design",
+      "Event Design",
       "Social Media Design",
       "Product Card"
     ],
@@ -594,7 +595,7 @@ export const portfolioData: PortfolioItem[] = [
     "tags": [
       "Brand Identity Design",
       "Social Media Design",
-      "Marketing Campaign Design"
+      "Event Design"
     ],
     "description": "Comprehensive visual brand system for Evritin Loiza 360, showcasing ushering campaigns, perfume branding, healthy drinks packaging layouts, and social media flyers.",
     "imageUrl": "/portfolio/brand-collage-1.jpg",
@@ -616,9 +617,9 @@ export const portfolioData: PortfolioItem[] = [
   {
     "id": "proj-flyer-shoe",
     "title": "Footwear Brand Promotional Card",
-    "category": "Marketing Campaign Design",
+    "category": "Event Design",
     "tags": [
-      "Marketing Campaign Design",
+      "Event Design",
       "Social Media Design",
       "Product Card"
     ],
@@ -723,7 +724,7 @@ export const portfolioData: PortfolioItem[] = [
     "category": "Church Media Design",
     "tags": [
       "Church Media Design",
-      "Marketing Campaign Design",
+      "Event Design",
       "Social Media Design"
     ],
     "description": "Bold promotional church flyer designed for the 'Desire A Church Family?' outreach campaign, prioritizing typographic structure and warm imagery to invite visitors.",
@@ -825,78 +826,78 @@ export const portfolioData: PortfolioItem[] = [
   },
   {
     "id": "proj-book-cover-b1",
-    "title": "The Path of Wisdom",
+    "title": "Fight Like a Winner",
+    "author": "Damilola Glowville",
     "category": "Book Cover Design",
     "tags": [
       "Book Cover Design",
       "Print Design",
       "Typography"
     ],
-    "description": "Minimalist typographic book cover layout incorporating elegant visual hierarchy and subtle canvas overlays.",
-    "imageUrl": "/portfolio/B1.jpeg",
+    "description": "Designed a bold relationship-focused book cover using expressive imagery, strong typography and warm cinematic colour grading to immediately communicate emotional intensity and practical guidance.",
+    "imageUrl": "/portfolio/fight_like_a_winner.jpg",
     "link": "https://www.pinterest.com/estheru0974/_created/",
     "tools": [
-      "InDesign",
       "Adobe Photoshop",
-      "Typography"
+      "Adobe Illustrator"
     ],
-    "problem": "The author of a personal growth book needed a cover design that would project introspection and clarity, appealing to readers searching for mindfulness in a busy world.",
-    "solution": "Created a minimalist typographic layout utilizing a textured canvas backdrop, refined serif fonts, and high-impact white space to reflect calm and wisdom.",
-    "clientOutcome": "The clean cover design achieved high shelf visibility in retail bookstores and drove early clicks on digital self-publishing storefronts.",
+    "problem": "Create a visually striking relationship book cover that instantly captures emotional conflict while communicating hope, restoration and practical wisdom.",
+    "solution": "Developed a cinematic composition featuring expressive character photography, dramatic lighting and bold typography to create immediate shelf impact. Warm earth tones reinforce the emotional narrative while maintaining premium publishing standards.",
+    "clientOutcome": "Delivered a memorable cover that strengthens the author's personal brand, increases bookstore visibility and encourages readers to immediately understand the book's core message.",
     "gallery": [
-      "/portfolio/B1.jpeg"
+      "/portfolio/fight_like_a_winner.jpg"
     ],
     "boardName": "Book Cover Designs",
     "isFeatured": false
   },
   {
     "id": "proj-book-cover-b2",
-    "title": "Shadows in the Mist",
+    "title": "The Husband Blueprint",
+    "author": "Emmanuel Ekundayo Owolabi",
     "category": "Book Cover Design",
     "tags": [
       "Book Cover Design",
       "Print Design",
       "Typography"
     ],
-    "description": "Moody, atmospheric book cover design balancing ambient color tones and custom serif lettering.",
-    "imageUrl": "/portfolio/B2.jpeg",
+    "description": "Premium marriage and leadership book cover featuring structured typography, symbolic 3D heart elements and architectural visual language that reinforces the book's central message.",
+    "imageUrl": "/portfolio/the_husband_blueprint.jpg",
     "link": "https://www.pinterest.com/estheru0974/_created/",
     "tools": [
-      "InDesign",
       "Adobe Photoshop",
-      "Typography"
+      "Adobe Illustrator"
     ],
-    "problem": "A thriller novelist required a cover design that would build immediate suspense and communicate a cold, mystery-filled atmospheric setting.",
-    "solution": "Engineered a moody cover composition featuring high-contrast blue shadows, mist visual overlays, and sharp modern serif typography.",
-    "clientOutcome": "Captured the dark mood of the novel, resulting in positive reader reviews and increased digital page turn ratios during preview campaigns.",
+    "problem": "Design a modern marriage-focused publication that immediately conveys leadership, stability and intentional family building.",
+    "solution": "Created a clean publishing layout using oversized typography, blueprint-inspired visual elements and symbolic interlocking hearts to communicate strength, commitment and structure.",
+    "clientOutcome": "Produced a premium cover that positions the author professionally while increasing perceived value for both print and digital publishing.",
     "gallery": [
-      "/portfolio/B2.jpeg"
+      "/portfolio/the_husband_blueprint.jpg"
     ],
     "boardName": "Book Cover Designs",
     "isFeatured": false
   },
   {
     "id": "proj-book-cover-b3",
-    "title": "Echoes of Eternity",
+    "title": "No Excuse Is Good Enough",
+    "author": "Omolayo Murewa",
     "category": "Book Cover Design",
     "tags": [
       "Book Cover Design",
       "Print Design",
       "Typography"
     ],
-    "description": "Elegant editorial book cover layout featuring deep contrasts, golden lighting overlays, and clean typographic spacing.",
-    "imageUrl": "/portfolio/B3.jpeg",
+    "description": "A powerful motivational book cover combining expressive portrait photography, bold editorial typography and vibrant red accents to communicate resilience, grace and transformation.",
+    "imageUrl": "/portfolio/no_excuse_is_good_enough.jpg",
     "link": "https://www.pinterest.com/estheru0974/_created/",
     "tools": [
-      "InDesign",
       "Adobe Photoshop",
-      "Typography"
+      "Adobe Illustrator"
     ],
-    "problem": "A historical fiction author needed a cover that conveys timelessness, grandeur, and emotional depth for a multi-generational epic.",
-    "solution": "Layered a dark editorial canvas with warm golden light leaks, combined with spacious classic typography and fine line alignments.",
-    "clientOutcome": "Positioned the book as a premium historical fiction release, supporting high pre-order volumes and strong initial reviews.",
+    "problem": "Design a cover that visually communicates perseverance and personal transformation while standing out in the motivational and inspirational book category.",
+    "solution": "Used dramatic portrait imagery with high-contrast typography, controlled colour hierarchy and clean editorial composition to guide the reader's attention while reinforcing the book's message.",
+    "clientOutcome": "Created a professional publishing-ready cover capable of improving online click-through rates and increasing shelf recognition.",
     "gallery": [
-      "/portfolio/B3.jpeg"
+      "/portfolio/no_excuse_is_good_enough.jpg"
     ],
     "boardName": "Book Cover Designs",
     "isFeatured": false

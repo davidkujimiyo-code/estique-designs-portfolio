@@ -65,7 +65,7 @@ export const Portfolio: React.FC<PortfolioProps> = ({ onSelectItem }) => {
     'Brand Identity Design',
     'Church Media Design',
     'Social Media Design',
-    'Marketing Campaign Design',
+    'Event Design',
     'Book Cover Design',
     'Print Design',
   ];

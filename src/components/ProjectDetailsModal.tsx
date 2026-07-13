@@ -89,7 +89,7 @@ export const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({
           <div className="sticky top-0 bg-white/90 dark:bg-[#0c0c0c]/90 backdrop-blur-md z-30 px-8 py-5 border-b border-zinc-100 dark:border-zinc-900 flex justify-between items-center">
             <div className="flex flex-col text-left">
               <span className="font-heading text-[9px] uppercase tracking-widest text-[#777777] font-semibold">
-                CASE STUDY
+                CASE STUDY {item.author && `| BY ${item.author.toUpperCase()}`}
               </span>
               <span className="font-heading font-extrabold text-sm text-zinc-900 dark:text-white leading-none mt-1">
                 {item.title}

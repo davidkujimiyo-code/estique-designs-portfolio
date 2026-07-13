@@ -243,3 +243,50 @@ body, section, nav, footer, button, a, input, textarea, select, span, h1, h2, h3
   animation: shimmer-once 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+/* Premium Fallback Animations */
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.35; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.1); }
+}
+@keyframes pulse-slower {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.75; transform: scale(1.08); }
+}
+@keyframes drift-streak {
+  0% { transform: translate(-5%, -5%) rotate(0deg); }
+  50% { transform: translate(5%, 5%) rotate(5deg); }
+  100% { transform: translate(-5%, -5%) rotate(0deg); }
+}
+@keyframes float-particle {
+  0% { transform: translateY(0) scale(1); opacity: 0; }
+  10% { opacity: 0.8; }
+  90% { opacity: 0.8; }
+  100% { transform: translateY(-420px) scale(0.6); opacity: 0; }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 8s infinite ease-in-out;
+}
+.animate-pulse-slower {
+  animation: pulse-slower 12s infinite ease-in-out;
+}
+.animate-drift-streak {
+  animation: drift-streak 20s infinite ease-in-out;
+}
+.animate-float-particle {
+  animation: float-particle 7s infinite linear;
+}
+
+/* Reduced Motion Override */
+@media (prefers-reduced-motion: reduce) {
+  .animate-pulse-slow,
+  .animate-pulse-slower,
+  .animate-drift-streak,
+  .animate-float-particle,
+  .animate-float-1,
+  .animate-float-2 {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
