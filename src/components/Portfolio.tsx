@@ -4,6 +4,7 @@ import { Search, SlidersHorizontal, ArrowRight } from 'lucide-react';
 import { portfolioData } from '../data/portfolio';
 import type { PortfolioItem } from '../data/portfolio';
 import logoCollage from '../assets/logo-collage.jpg';
+import { trackEvent } from '../utils/analytics';
 
 
 
@@ -71,6 +72,11 @@ export const Portfolio: React.FC<PortfolioProps> = ({ onSelectItem }) => {
 
 
 
+
+  const handleItemClick = (item: PortfolioItem) => {
+    trackEvent('portfolio_view_details', { project_id: item.id, project_title: item.title });
+    onSelectItem(item);
+  };
 
   // 1. Featured Projects: 6-8 items
   const featuredProjects = useMemo(() => {
@@ -146,7 +152,7 @@ export const Portfolio: React.FC<PortfolioProps> = ({ onSelectItem }) => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-50px' }}
                 transition={{ duration: 0.6 }}
-                onClick={() => onSelectItem(item)}
+                onClick={() => handleItemClick(item)}
                 className="group cursor-pointer overflow-hidden rounded-3xl border border-zinc-200/40 dark:border-zinc-850 bg-[#fbfbfb] dark:bg-[#111111] shadow-md hover:shadow-2xl transition-all duration-500 flex flex-col md:grid md:grid-cols-12 min-h-[320px]"
               >
                 {/* Visual Image container (5 cols) */}
@@ -341,7 +347,7 @@ export const Portfolio: React.FC<PortfolioProps> = ({ onSelectItem }) => {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.5 }}
-                  onClick={() => onSelectItem(item)}
+                  onClick={() => handleItemClick(item)}
                   className="group relative cursor-pointer overflow-hidden rounded-2xl border border-zinc-200/40 dark:border-zinc-850 bg-[#fbfbfb] dark:bg-[#111111] shadow-md hover:shadow-xl transition-all duration-500 break-inside-avoid flex flex-col"
                 >
                   {/* Image container */}

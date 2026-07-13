@@ -1,12 +1,19 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
+import { trackEvent } from '../utils/analytics';
 
 import headshot from '../assets/headshot.jpg';
 
 
 export const Hero: React.FC = () => {
   const scrollToSection = (id: string) => {
+    if (id === '#contact') {
+      trackEvent('book_a_project_click', { location: 'hero_section' });
+    } else if (id === '#portfolio') {
+      trackEvent('nav_click', { link_name: 'View Portfolio (Hero)' });
+    }
+
     const el = document.querySelector(id);
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };

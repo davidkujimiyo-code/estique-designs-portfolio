@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Sun, Moon } from 'lucide-react';
 import logoMonogramOnly from '../assets/logo-monogram-only.png';
+import { trackEvent } from '../utils/analytics';
 
 const ThemeToggle: React.FC<{ darkMode: boolean; setDarkMode: (val: boolean) => void }> = ({ darkMode, setDarkMode }) => {
   return (
@@ -75,9 +76,12 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, setDarkMode, activeSec
   ];
 
 
-  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string, linkName: string) => {
     e.preventDefault();
     setIsMobileMenuOpen(false);
+    
+    trackEvent('nav_click', { link_name: linkName });
+
     const targetElement = document.querySelector(href);
     if (targetElement) {
       targetElement.scrollIntoView({ behavior: 'smooth' });
@@ -85,6 +89,8 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, setDarkMode, activeSec
   };
 
   const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    trackEvent('nav_click', { link_name: 'Logo/Home' });
+    
     const isHomepage = window.location.pathname === '/' || window.location.pathname === '/index.html' || window.location.hash.startsWith('#');
     if (isHomepage) {
       e.preventDefault();
@@ -96,6 +102,8 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, setDarkMode, activeSec
   };
 
   const handleBookClick = () => {
+    trackEvent('book_a_project_click', { location: 'navbar' });
+    
     setIsMobileMenuOpen(false);
     const targetElement = document.querySelector('#contact');
     if (targetElement) {
@@ -143,7 +151,7 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, setDarkMode, activeSec
                 <a
                   key={link.name}
                   href={link.href}
-                  onClick={(e) => handleLinkClick(e, link.href)}
+                  onClick={(e) => handleLinkClick(e, link.href, link.name)}
                   className={`font-heading text-xs tracking-wider uppercase font-semibold transition-colors duration-300 relative py-1 ${
                     isActive
                       ? 'text-brand-emerald dark:text-brand-gold'
@@ -203,7 +211,7 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, setDarkMode, activeSec
                 <motion.a
                   key={link.name}
                   href={link.href}
-                  onClick={(e) => handleLinkClick(e, link.href)}
+                  onClick={(e) => handleLinkClick(e, link.href, link.name)}
                   className="font-heading text-3xl font-bold tracking-tight text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white uppercase transition-colors duration-300"
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}

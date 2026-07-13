@@ -4,6 +4,7 @@ import { X, ArrowLeft, ArrowRight, Wrench, ShieldCheck, HelpCircle, Compass } fr
 import { portfolioData } from '../data/portfolio';
 import type { PortfolioItem } from '../data/portfolio';
 import { CardPlaceholder } from './Portfolio';
+import { trackEvent } from '../utils/analytics';
 
 
 
@@ -160,6 +161,9 @@ export const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({
                     href={item.link}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => {
+                      trackEvent('pinterest_link_clicked', { pin_title: item.title, location: 'project_details_modal' });
+                    }}
                     className="px-4 py-2 rounded-full bg-brand-black text-white hover:bg-brand-emerald dark:bg-white dark:text-brand-black dark:hover:bg-brand-gold font-heading text-[10px] uppercase font-bold tracking-wider hover:scale-105 active:scale-95 transition-all duration-300 interactive-hover"
                   >
                     View Pin

@@ -3,10 +3,19 @@ import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { portfolioData } from '../data/portfolio';
 import { CardPlaceholder } from './Portfolio';
+import { trackEvent } from '../utils/analytics';
 
 export const PinterestShowcase: React.FC = () => {
   // Take 6 projects to showcase in the Pinterest feed
   const pinsToShow = portfolioData.slice(3, 9);
+
+  const trackPinterestBoardClick = () => {
+    trackEvent('pinterest_link_clicked', { location: 'board_cta' });
+  };
+
+  const trackPinClick = (title: string) => {
+    trackEvent('pinterest_link_clicked', { pin_title: title, location: 'pin_card' });
+  };
 
   return (
     <section
@@ -38,6 +47,7 @@ export const PinterestShowcase: React.FC = () => {
             href="https://pin.it/2tTOplPYr"
             target="_blank"
             rel="noopener noreferrer"
+            onClick={trackPinterestBoardClick}
             className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-red-600 hover:bg-red-700 text-white font-heading text-xs tracking-wider uppercase font-bold hover:scale-105 active:scale-95 transition-all duration-300 shadow-lg shadow-red-600/20 interactive-hover"
           >
             Visit Pinterest Board <ArrowUpRight size={14} />
@@ -53,6 +63,7 @@ export const PinterestShowcase: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-50px' }}
               transition={{ duration: 0.6, delay: idx * 0.05 }}
+              onClick={() => trackPinClick(pin.title || 'Visual Study')}
               className="relative overflow-hidden rounded-2xl border border-zinc-900 bg-zinc-900 group cursor-pointer break-inside-avoid flex flex-col"
             >
               {pin.imageUrl === 'placeholder' || !pin.imageUrl ? (
@@ -77,6 +88,7 @@ export const PinterestShowcase: React.FC = () => {
                   href={pin.link}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => trackPinClick(pin.title || 'Visual Study')}
                   className="font-heading text-[9px] uppercase tracking-widest font-extrabold text-[#777777] hover:text-white flex items-center gap-1 mt-1 transition-colors"
                 >
                   Inspect on Pinterest <ArrowUpRight size={10} />

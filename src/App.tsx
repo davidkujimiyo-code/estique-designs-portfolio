@@ -16,6 +16,7 @@ import { Footer } from './components/Footer';
 
 import { ProjectDetailsModal } from './components/ProjectDetailsModal';
 import type { PortfolioItem } from './data/portfolio';
+import { trackPageView, trackEvent } from './utils/analytics';
 
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
   const [activeSection, setActiveSection] = useState<string>('home');
 
   // Handle dark mode class toggling on document element & update browser theme-color meta
+  const [themeInit, setThemeInit] = useState(false);
   useEffect(() => {
     let metaThemeColor = document.querySelector('meta[name="theme-color"]');
     if (!metaThemeColor) {
@@ -51,6 +53,12 @@ function App() {
       document.documentElement.classList.remove('dark');
       localStorage.setItem('theme', 'light');
       metaThemeColor.setAttribute('content', '#ffffff');
+    }
+
+    if (themeInit) {
+      trackEvent('theme_switch', { theme: darkMode ? 'dark' : 'light' });
+    } else {
+      setThemeInit(true);
     }
   }, [darkMode]);
 
@@ -85,6 +93,13 @@ function App() {
     
     return () => window.removeEventListener('scroll', handleScroll);
   }, [isLoading]);
+
+  // Track page views when active section or hash changes
+  useEffect(() => {
+    if (!isLoading) {
+      trackPageView(window.location.pathname + '#' + activeSection);
+    }
+  }, [activeSection, isLoading]);
 
   return (
     <>

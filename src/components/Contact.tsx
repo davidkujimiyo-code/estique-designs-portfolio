@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Mail, MessageSquare, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { trackEvent } from '../utils/analytics';
 
 
 
@@ -97,6 +98,11 @@ export const Contact: React.FC<ContactProps> = ({ selectedService }) => {
     return Object.keys(newErrors).length === 0;
   };
 
+  // Track form opened when the contact component mounts
+  useEffect(() => {
+    trackEvent('booking_form_opened');
+  }, []);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitError(null);
@@ -109,6 +115,9 @@ export const Contact: React.FC<ContactProps> = ({ selectedService }) => {
     }
 
     setIsSubmitting(true);
+
+    // Track submission attempt
+    trackEvent('booking_form_submitted', { project_type: formData.projectType });
 
     try {
       const response = await fetch('/api/booking', {
@@ -127,6 +136,9 @@ export const Contact: React.FC<ContactProps> = ({ selectedService }) => {
       if (!response.ok) {
         throw new Error(data.error || 'Something went wrong. Please try again.');
       }
+
+      // Track successful request completion
+      trackEvent('booking_request_success', { project_type: formData.projectType });
 
       setIsSubmitted(true);
       setTimeout(() => {
@@ -147,6 +159,11 @@ export const Contact: React.FC<ContactProps> = ({ selectedService }) => {
     } catch (err: any) {
       console.error('Booking submission failed:', err);
       
+      const errorMsg = err.message || 'An unexpected error occurred during submission.';
+      
+      // Track submission failure
+      trackEvent('booking_request_failed', { error: errorMsg });
+
       const isTechnical = 
         err instanceof SyntaxError || 
         err.message?.includes('JSON') || 
@@ -155,7 +172,7 @@ export const Contact: React.FC<ContactProps> = ({ selectedService }) => {
         
       const friendlyError = isTechnical
         ? "We couldn't submit your booking right now. Please try again in a few moments."
-        : (err.message || 'An unexpected error occurred during submission.');
+        : errorMsg;
         
       setSubmitError(friendlyError);
       
@@ -169,7 +186,17 @@ export const Contact: React.FC<ContactProps> = ({ selectedService }) => {
   };
 
   const handleWhatsAppChat = () => {
+    trackEvent('whatsapp_click', { location: 'contact_section' });
     window.open('https://wa.me/2349027966779', '_blank');
+  };
+
+  const handleEmailClick = () => {
+    trackEvent('email_click', { location: 'contact_section' });
+  };
+
+  const handleReset = () => {
+    setIsSubmitted(false);
+    trackEvent('booking_reset_clicked');
   };
 
   return (
@@ -196,6 +223,7 @@ export const Contact: React.FC<ContactProps> = ({ selectedService }) => {
             <div className="space-y-6 mb-10">
               <a
                 href="mailto:estherudoh27@gmail.com"
+                onClick={handleEmailClick}
                 className="flex items-center gap-4 group cursor-pointer interactive-hover"
               >
                 <div className="p-3 rounded-xl bg-zinc-50 border border-zinc-150 text-zinc-700 dark:bg-zinc-900 dark:border-zinc-800 dark:text-zinc-300 group-hover:text-brand-emerald dark:group-hover:text-brand-gold transition-colors">
@@ -293,7 +321,7 @@ export const Contact: React.FC<ContactProps> = ({ selectedService }) => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.4, delay: 0.6 }}
-                    onClick={() => setIsSubmitted(false)}
+                    onClick={handleReset}
                     className="px-6 py-2.5 rounded-full border border-zinc-200 dark:border-zinc-800 font-heading text-[10px] uppercase tracking-wider font-extrabold text-zinc-700 dark:text-zinc-300 hover:border-brand-emerald dark:hover:border-brand-gold hover:text-brand-emerald dark:hover:text-brand-gold transition-all cursor-pointer hover:scale-[1.03] active:scale-[0.97]"
                   >
                     Reset Form

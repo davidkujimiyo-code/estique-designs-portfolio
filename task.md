@@ -16,4 +16,7 @@
 - [x] Corrected "TPR Corporate Logotype" project to "Desire A Church Family? – Church Invitation Campaign" and rewrote it as a Church Media Design project
 - [x] Audited all 30+ portfolio items in `portfolio.ts` to use unique, authentic client case study descriptions and unique React keys
 - [x] Aligned portfolio filter tabs in `Portfolio.tsx` with the 6 core specialties of Esther Udoh
+- [x] Created `src/utils/analytics.ts` containing production-only initialized script loads for Google Analytics 4 (GA4) and Microsoft Clarity
+- [x] Hooked GA4 & Clarity SPA route pageview tracking into scrolling triggers inside `App.tsx`
+- [x] Configured telemetry event triggers for theme switches, contact forms, click-to-chats, and portfolio navigations
 - [x] Verify TypeScript and Vite production build builds successfully

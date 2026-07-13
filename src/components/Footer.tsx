@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ArrowUp, ArrowRight } from 'lucide-react';
 import logoMonogramOnly from '../assets/logo-monogram-only.png';
 import { motion, AnimatePresence } from 'framer-motion';
+import { trackEvent } from '../utils/analytics';
 
 
 
@@ -27,12 +28,29 @@ export const Footer: React.FC = () => {
   ];
 
 
-  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string, linkName: string) => {
     e.preventDefault();
+    trackEvent('nav_click', { link_name: linkName });
     const targetElement = document.querySelector(href);
     if (targetElement) {
       targetElement.scrollIntoView({ behavior: 'smooth' });
     }
+  };
+
+  const trackWhatsAppClick = () => {
+    trackEvent('whatsapp_click', { location: 'footer' });
+  };
+
+  const trackEmailClick = () => {
+    trackEvent('email_click', { location: 'footer' });
+  };
+
+  const trackExternalClick = (url: string) => {
+    trackEvent('external_link_clicked', { url });
+  };
+
+  const trackPinterestClick = () => {
+    trackEvent('pinterest_link_clicked', { location: 'footer' });
   };
 
   return (
@@ -100,7 +118,7 @@ export const Footer: React.FC = () => {
               <div className="w-full">
                 <a
                   href="#contact"
-                  onClick={(e) => handleLinkClick(e, '#contact')}
+                  onClick={(e) => handleLinkClick(e, '#contact', 'Start Your Project CTA (Desktop)')}
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-zinc-950 text-white hover:bg-brand-emerald dark:bg-white dark:text-zinc-950 dark:hover:bg-brand-gold transition-all duration-300 font-heading text-[10px] font-extrabold uppercase tracking-wider shadow-md hover:shadow-brand-emerald/10 dark:hover:shadow-brand-gold/10 hover:scale-[1.02] active:scale-[0.98] mb-2 interactive-hover cursor-pointer"
                 >
                   Start Your Project <ArrowRight size={12} />
@@ -122,7 +140,7 @@ export const Footer: React.FC = () => {
                 <a
                   key={link.name}
                   href={link.href}
-                  onClick={(e) => handleLinkClick(e, link.href)}
+                  onClick={(e) => handleLinkClick(e, link.href, link.name)}
                   className="font-body text-xs text-zinc-650 dark:text-zinc-400 hover:text-brand-emerald dark:hover:text-brand-gold transition-colors font-light"
                 >
                   {link.name}
@@ -161,6 +179,7 @@ export const Footer: React.FC = () => {
             <div className="flex flex-col gap-2 mb-5 font-light">
               <a
                 href="mailto:estherudoh27@gmail.com"
+                onClick={trackEmailClick}
                 className="font-body text-xs text-zinc-650 dark:text-zinc-400 hover:text-brand-emerald dark:hover:text-brand-gold transition-colors break-all"
               >
                 estherudoh27@gmail.com
@@ -169,6 +188,7 @@ export const Footer: React.FC = () => {
                 href="https://wa.me/2349027966779"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={trackWhatsAppClick}
                 className="font-body text-xs text-zinc-650 dark:text-zinc-400 hover:text-brand-emerald dark:hover:text-brand-gold transition-colors"
               >
                 Chat on WhatsApp
@@ -182,6 +202,7 @@ export const Footer: React.FC = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.15, y: -2 }}
+                onClick={trackPinterestClick}
                 className="text-zinc-400 dark:text-zinc-500 hover:text-brand-emerald dark:hover:text-brand-gold transition-colors cursor-pointer"
                 aria-label="Pinterest"
               >
@@ -193,6 +214,7 @@ export const Footer: React.FC = () => {
               <motion.a
                 href="mailto:estherudoh27@gmail.com"
                 whileHover={{ scale: 1.15, y: -2 }}
+                onClick={trackEmailClick}
                 className="text-zinc-400 dark:text-zinc-500 hover:text-brand-emerald dark:hover:text-brand-gold transition-colors cursor-pointer"
                 aria-label="Email"
               >
@@ -207,6 +229,7 @@ export const Footer: React.FC = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.15, y: -2 }}
+                onClick={trackWhatsAppClick}
                 className="text-zinc-400 dark:text-zinc-500 hover:text-brand-emerald dark:hover:text-brand-gold transition-colors cursor-pointer"
                 aria-label="WhatsApp"
               >
@@ -268,7 +291,7 @@ export const Footer: React.FC = () => {
             >
               <a
                 href="#contact"
-                onClick={(e) => handleLinkClick(e, '#contact')}
+                onClick={(e) => handleLinkClick(e, '#contact', 'Start Your Project CTA (Mobile)')}
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-zinc-950 text-white hover:bg-brand-emerald dark:bg-white dark:text-zinc-950 dark:hover:bg-brand-gold transition-all duration-300 font-heading text-[10px] font-extrabold uppercase tracking-widest shadow-md active:scale-95 relative overflow-hidden group cursor-pointer"
               >
                 {/* Refined Shimmer Effect */}
@@ -288,6 +311,7 @@ export const Footer: React.FC = () => {
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.15, y: -2 }}
                 whileTap={{ scale: 0.95 }}
+                onClick={trackPinterestClick}
                 className="text-zinc-550 dark:text-zinc-450 hover:text-brand-emerald dark:hover:text-brand-gold hover:drop-shadow-[0_0_8px_rgba(201,162,39,0.3)] transition-colors cursor-pointer p-2.5 bg-white dark:bg-zinc-950 border border-zinc-200/50 dark:border-zinc-900 rounded-full"
                 aria-label="Pinterest"
               >
@@ -300,6 +324,7 @@ export const Footer: React.FC = () => {
                 href="mailto:estherudoh27@gmail.com"
                 whileHover={{ scale: 1.15, y: -2 }}
                 whileTap={{ scale: 0.95 }}
+                onClick={trackEmailClick}
                 className="text-zinc-550 dark:text-zinc-450 hover:text-brand-emerald dark:hover:text-brand-gold hover:drop-shadow-[0_0_8px_rgba(201,162,39,0.3)] transition-colors cursor-pointer p-2.5 bg-white dark:bg-zinc-950 border border-zinc-200/50 dark:border-zinc-900 rounded-full"
                 aria-label="Email"
               >
@@ -315,6 +340,7 @@ export const Footer: React.FC = () => {
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.15, y: -2 }}
                 whileTap={{ scale: 0.95 }}
+                onClick={trackWhatsAppClick}
                 className="text-zinc-550 dark:text-zinc-450 hover:text-brand-emerald dark:hover:text-brand-gold hover:drop-shadow-[0_0_8px_rgba(201,162,39,0.3)] transition-colors cursor-pointer p-2.5 bg-white dark:bg-zinc-950 border border-zinc-200/50 dark:border-zinc-900 rounded-full"
                 aria-label="WhatsApp"
               >
@@ -360,7 +386,7 @@ export const Footer: React.FC = () => {
                           key={link.name}
                           href={link.href}
                           onClick={(e) => {
-                            handleLinkClick(e, link.href);
+                            handleLinkClick(e, link.href, link.name);
                             setOpenAccordion(null);
                           }}
                           className="font-body text-xs text-zinc-650 dark:text-zinc-400 hover:text-brand-emerald dark:hover:text-brand-gold transition-colors font-light py-1"
@@ -456,6 +482,7 @@ export const Footer: React.FC = () => {
                       <div className="flex flex-col gap-3.5 items-center font-light w-full">
                         <a
                           href="mailto:estherudoh27@gmail.com"
+                          onClick={trackEmailClick}
                           className="font-body text-xs text-[#C9A227] hover:underline transition-colors break-all py-1"
                         >
                           estherudoh27@gmail.com
@@ -464,6 +491,7 @@ export const Footer: React.FC = () => {
                           href="https://wa.me/2349027966779"
                           target="_blank"
                           rel="noopener noreferrer"
+                          onClick={trackWhatsAppClick}
                           className="font-body text-xs text-zinc-650 dark:text-zinc-400 hover:text-brand-emerald dark:hover:text-brand-gold transition-colors py-1"
                         >
                           Chat on WhatsApp
@@ -472,6 +500,7 @@ export const Footer: React.FC = () => {
                           href="https://pin.it/2tTOplPYr"
                           target="_blank"
                           rel="noopener noreferrer"
+                          onClick={trackPinterestClick}
                           className="font-body text-xs text-zinc-650 dark:text-zinc-400 hover:text-brand-emerald dark:hover:text-brand-gold transition-colors py-1"
                         >
                           Pinterest
@@ -480,6 +509,7 @@ export const Footer: React.FC = () => {
                           href="https://instagram.com"
                           target="_blank"
                           rel="noopener noreferrer"
+                          onClick={() => trackExternalClick('https://instagram.com')}
                           className="font-body text-xs text-zinc-650 dark:text-zinc-400 hover:text-brand-emerald dark:hover:text-brand-gold transition-colors py-1"
                         >
                           Instagram
@@ -506,6 +536,7 @@ export const Footer: React.FC = () => {
               href="https://dkdigitalstudio.com"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackExternalClick('https://dkdigitalstudio.com')}
               className="font-semibold text-zinc-700 hover:text-brand-emerald dark:text-zinc-400 dark:hover:text-brand-gold transition-colors duration-300 relative group inline-block"
             >
               DK Digital Studio
