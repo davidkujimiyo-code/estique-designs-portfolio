@@ -13,4 +13,7 @@
 - [x] Corrected Cloudflare Turnstile verification parameters (siteverify endpoint, URL-encoded payload formatting, and diagnostic header logging)
 - [x] Updated booking success screen copy, added Framer Motion animations for fade-ins and checkmarks, and configured smooth centering scroll handlers
 - [x] Added "Designed & Developed by DK Digital Studio" link to footer bottom with subtle gold hover and underline animations
+- [x] Corrected "TPR Corporate Logotype" project to "Desire A Church Family? – Church Invitation Campaign" and rewrote it as a Church Media Design project
+- [x] Audited all 30+ portfolio items in `portfolio.ts` to use unique, authentic client case study descriptions and unique React keys
+- [x] Aligned portfolio filter tabs in `Portfolio.tsx` with the 6 core specialties of Esther Udoh
 - [x] Verify TypeScript and Vite production build builds successfully

@@ -61,13 +61,12 @@ export const Portfolio: React.FC<PortfolioProps> = ({ onSelectItem }) => {
 
   const categories = [
     'All',
-    'Church Designs',
-    'Brand Identity',
-    'Book Cover Designs',
-    'Social Media Designs',
-    'Logo Design',
-    'Event Flyers',
-    'Corporate Branding',
+    'Brand Identity Design',
+    'Church Media Design',
+    'Social Media Design',
+    'Marketing Campaign Design',
+    'Book Cover Design',
+    'Print Design',
   ];
 
 
