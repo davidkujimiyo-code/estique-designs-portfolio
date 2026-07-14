@@ -1,31 +1,55 @@
-// Central Business & Branding Configuration for Estique Designs
-// To deploy this framework for a future client project, simply replace the values below.
+// Detect the site URL dynamically based on Vite/Vercel environments
+const getSiteUrl = (): string => {
+  // 1. Check if VITE_SITE_URL environment variable is provided (loaded from .env.production/.env.development or dashboard overrides)
+  const envUrl = import.meta.env.VITE_SITE_URL;
+  if (envUrl && envUrl.trim() !== '') {
+    return envUrl.replace(/\/$/, ""); // strip trailing slash
+  }
+
+  // 2. Check if we are running in a Vercel Preview deployment client-side
+  if (typeof window !== 'undefined' && window.location.hostname.includes('vercel.app')) {
+    return `https://${window.location.hostname}`;
+  }
+
+  // 3. Graceful client-side fallback during runtime
+  if (typeof window !== 'undefined' && window.location?.origin) {
+    return window.location.origin;
+  }
+
+  // 4. Default production fallback
+  return "https://estique-designs-portfolio.vercel.app";
+};
+
+export const baseUrl = getSiteUrl();
+
 export const siteConfig = {
-  name: "Estique Designs",
+  // Central Brand Identifiers
+  siteName: "Estique Designs",
+  siteDescription: "Estique Designs is a premium design studio in Nigeria specializing in strategic brand identity, logo design, luxury book cover design, social media graphics, and church media design.",
+  siteUrl: baseUrl,
+  logo: `${baseUrl}/logo.png`,
+  favicon: `${baseUrl}/favicon.ico`,
+  appleTouchIcon: `${baseUrl}/apple-touch-icon.png`,
+  ogImage: `${baseUrl}/og-image.jpg`,
+  twitterImage: `${baseUrl}/og-image.jpg`,
+  organizationImage: `${baseUrl}/logo.png`,
+  language: "en-US",
+  author: "Estique Designs",
+  publisher: "Estique Designs",
+
+  // Founder Information
   founder: {
     name: "Esther Udoh",
     role: "Founder & Creative Director",
     occupation: "Graphic Designer",
-    // Compiled production path or public folder absolute asset link
-    image: "https://estiquedesigns.com/assets/headshot-CInt_e5X.jpg",
+    image: `${baseUrl}/assets/headshot-CInt_e5X.jpg`,
     socials: [
       "https://www.pinterest.com/estheru0974/_created/",
       "https://wa.me/2349027966779"
     ]
   },
-  siteUrl: "https://estiquedesigns.com",
-  logo: "https://estiquedesigns.com/logo.png",
-  favicon: "https://estiquedesigns.com/favicon.ico",
-  appleTouchIcon: "https://estiquedesigns.com/apple-touch-icon.png",
-  ogImage: "https://estiquedesigns.com/og-image.jpg",
-  twitterImage: "https://estiquedesigns.com/og-image.jpg",
-  organizationImage: "https://estiquedesigns.com/logo.png",
 
-  // Backwards compatibility mappings
-  url: "https://estiquedesigns.com",
-  logoUrl: "https://estiquedesigns.com/logo.png",
-  heroImage: "https://estiquedesigns.com/og-image.jpg",
-  description: "Estique Designs is a premium design studio in Nigeria specializing in strategic brand identity, logo design, luxury book cover design, social media graphics, and church media design.",
+  // Contacts & Metadata Details
   email: "estherudoh27@gmail.com",
   phone: "+2349027966779",
   address: {
@@ -39,7 +63,13 @@ export const siteConfig = {
   ],
   category: "Graphic Design Studio",
   orgType: "Organization",
-  language: "en-US",
+
+  // Backwards compatibility mappings
+  name: "Estique Designs",
+  description: "Estique Designs is a premium design studio in Nigeria specializing in strategic brand identity, logo design, luxury book cover design, social media graphics, and church media design.",
+  url: baseUrl,
+  logoUrl: `${baseUrl}/logo.png`,
+  heroImage: `${baseUrl}/og-image.jpg`,
   services: [
     {
       id: "service-brand-identity",

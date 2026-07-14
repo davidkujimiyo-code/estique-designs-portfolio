@@ -10,6 +10,9 @@ export default defineConfig(({ mode }) => {
   Object.assign(process.env, env);
 
   return {
+    define: {
+      'process.env.VERCEL_URL': JSON.stringify(process.env.VERCEL_URL || '')
+    },
     plugins: [
       react(),
       tailwindcss(),
