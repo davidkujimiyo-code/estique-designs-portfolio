@@ -13,9 +13,17 @@ export const siteConfig = {
       "https://wa.me/2349027966779"
     ]
   },
-  url: "https://estiquedesigns.com",
-  logoUrl: "https://estiquedesigns.com/android-chrome-512x512.png",
+  siteUrl: "https://estiquedesigns.com",
+  logo: "https://estiquedesigns.com/logo.png",
+  favicon: "https://estiquedesigns.com/favicon.ico",
+  appleTouchIcon: "https://estiquedesigns.com/apple-touch-icon.png",
   ogImage: "https://estiquedesigns.com/og-image.jpg",
+  twitterImage: "https://estiquedesigns.com/og-image.jpg",
+  organizationImage: "https://estiquedesigns.com/logo.png",
+
+  // Backwards compatibility mappings
+  url: "https://estiquedesigns.com",
+  logoUrl: "https://estiquedesigns.com/logo.png",
   heroImage: "https://estiquedesigns.com/og-image.jpg",
   description: "Estique Designs is a premium design studio in Nigeria specializing in strategic brand identity, logo design, luxury book cover design, social media graphics, and church media design.",
   email: "estherudoh27@gmail.com",

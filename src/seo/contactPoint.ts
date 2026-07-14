@@ -7,6 +7,6 @@ export const getContactPointSchema = (config: SiteConfig) => {
     "contactType": "customer service",
     "email": config.email,
     "availableLanguage": ["en"],
-    "url": `${config.url}/#contact`
+    "url": `${config.siteUrl}/#contact`
   };
 };

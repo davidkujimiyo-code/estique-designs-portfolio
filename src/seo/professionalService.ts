@@ -3,14 +3,14 @@ import type { SiteConfig } from '../config/site';
 export const getProfessionalServiceSchema = (config: SiteConfig) => {
   return {
     "@type": "ProfessionalService",
-    "@id": `${config.url}/#service`,
+    "@id": `${config.siteUrl}/#service`,
     "name": config.name,
-    "url": config.url,
+    "url": config.siteUrl,
     "logo": {
-      "@id": `${config.url}/#logo`
+      "@id": `${config.siteUrl}/#logo`
     },
     "image": {
-      "@id": `${config.url}/#og-image`
+      "@id": `${config.siteUrl}/#og-image`
     },
     "description": config.description,
     "telephone": config.phone,
@@ -23,7 +23,7 @@ export const getProfessionalServiceSchema = (config: SiteConfig) => {
     },
     "priceRange": "$$",
     "parentOrganization": {
-      "@id": `${config.url}/#organization`
+      "@id": `${config.siteUrl}/#organization`
     },
     "hasOfferCatalog": {
       "@id": `${config.url}/#catalog`

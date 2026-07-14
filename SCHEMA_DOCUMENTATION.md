@@ -60,6 +60,41 @@ Every entity defines a unique `@id` URI (e.g. `https://estiquedesigns.com/#organ
 
 ---
 
+## 🖼️ Centralized Branding Assets Architecture
+
+To ensure high performance, search compatibility, and clean social link previews (Facebook, LinkedIn, X, WhatsApp, Discord, Slack, Telegram), every brand asset is centralized.
+
+### Asset Storage & Standard Naming
+All assets must be stored inside the `public/` directory with the following standardized filenames:
+* `public/og-image.jpg` — Open Graph & Twitter Card preview image (Resolution: 1200 x 630px, aspect ratio 1.91:1).
+* `public/logo.png` — Standard high-resolution brand logo (Resolution: 512 x 512px).
+* `public/apple-touch-icon.png` — Apple iOS home screen bookmark icon (Resolution: 180 x 180px).
+* `public/favicon.ico` — Standard fallback browser favicon.
+
+### Consuming Branding Assets via Config
+Every structured Schema element and metadata controller imports these absolute URLs from a single config dictionary inside [src/config/site.ts](file:///c:/Users/InfinityMFB/Documents/PORTFOLIO/src/config/site.ts):
+
+```typescript
+export const siteConfig = {
+  siteUrl: "https://estiquedesigns.com",
+  logo: "https://estiquedesigns.com/logo.png",
+  favicon: "https://estiquedesigns.com/favicon.ico",
+  appleTouchIcon: "https://estiquedesigns.com/apple-touch-icon.png",
+  ogImage: "https://estiquedesigns.com/og-image.jpg",
+  twitterImage: "https://estiquedesigns.com/og-image.jpg",
+  organizationImage: "https://estiquedesigns.com/logo.png",
+  // ...
+};
+```
+
+When deploying for a new client, developers only need to:
+1. Replace the assets inside `public/` preserving the filenames.
+2. Update the absolute domain values in `siteUrl` inside `src/config/site.ts`.
+
+This updates all layout schema graphs and meta tags automatically without breaking or duplicating asset links.
+
+---
+
 ## 🚀 3. How to Deploy on a New Client Website
 
 To reuse this architecture for another DK Digital Studio client (e.g. DamiGlow):

@@ -3,14 +3,14 @@ import type { SiteConfig } from '../config/site';
 export const getPersonSchema = (config: SiteConfig) => {
   return {
     "@type": "Person",
-    "@id": `${config.url}/#person`,
+    "@id": `${config.siteUrl}/#person`,
     "name": config.founder.name,
     "jobTitle": config.founder.role,
     "worksFor": {
-      "@id": `${config.url}/#organization`
+      "@id": `${config.siteUrl}/#organization`
     },
     "image": {
-      "@id": `${config.url}/#person-image`
+      "@id": `${config.siteUrl}/#person-image`
     },
     "sameAs": config.founder.socials,
     "hasOccupation": {

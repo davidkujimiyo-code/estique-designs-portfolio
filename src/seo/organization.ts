@@ -3,18 +3,18 @@ import type { SiteConfig } from '../config/site';
 export const getOrganizationSchema = (config: SiteConfig) => {
   return {
     "@type": "Organization",
-    "@id": `${config.url}/#organization`,
+    "@id": `${config.siteUrl}/#organization`,
     "name": config.name,
-    "url": config.url,
+    "url": config.siteUrl,
     "logo": {
-      "@id": `${config.url}/#logo`
+      "@id": `${config.siteUrl}/#logo`
     },
     "image": {
-      "@id": `${config.url}/#logo`
+      "@id": `${config.siteUrl}/#logo`
     },
     "description": config.description,
     "founder": {
-      "@id": `${config.url}/#person`
+      "@id": `${config.siteUrl}/#person`
     },
     "sameAs": config.socials
   };

@@ -3,18 +3,18 @@ import type { SiteConfig } from '../config/site';
 export const getWebPageSchema = (config: SiteConfig) => {
   return {
     "@type": "WebPage",
-    "@id": `${config.url}/#webpage`,
-    "url": config.url,
+    "@id": `${config.siteUrl}/#webpage`,
+    "url": config.siteUrl,
     "name": `${config.name} | Premium Graphic Designer & Brand Identity Studio`,
     "description": config.description,
     "isPartOf": {
-      "@id": `${config.url}/#website`
+      "@id": `${config.siteUrl}/#website`
     },
     "about": {
-      "@id": `${config.url}/#organization`
+      "@id": `${config.siteUrl}/#organization`
     },
     "primaryImageOfPage": {
-      "@id": `${config.url}/#og-image`
+      "@id": `${config.siteUrl}/#og-image`
     },
     "dateModified": "2026-07-14"
   };

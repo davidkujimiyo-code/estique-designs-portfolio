@@ -4,15 +4,15 @@ export const getImageObjects = (config: SiteConfig) => {
   return [
     {
       "@type": "ImageObject",
-      "@id": `${config.url}/#logo`,
-      "url": config.logoUrl,
+      "@id": `${config.siteUrl}/#logo`,
+      "url": config.logo,
       "caption": `${config.name} Logo`,
       "width": 512,
       "height": 512
     },
     {
       "@type": "ImageObject",
-      "@id": `${config.url}/#og-image`,
+      "@id": `${config.siteUrl}/#og-image`,
       "url": config.ogImage,
       "caption": `${config.name} Brand Presentation`,
       "width": 1200,
@@ -20,7 +20,7 @@ export const getImageObjects = (config: SiteConfig) => {
     },
     {
       "@type": "ImageObject",
-      "@id": `${config.url}/#person-image`,
+      "@id": `${config.siteUrl}/#person-image`,
       "url": config.founder.image,
       "caption": `${config.founder.name} - ${config.founder.role}`
     }
