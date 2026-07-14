@@ -97,9 +97,9 @@ export async function POST(request: Request) {
     );
   }
   if (!budget || typeof budget !== 'string') {
-    console.error('✗ Validation failed: Missing budget range');
+    console.error('✗ Validation failed: Missing estimated budget');
     return new Response(
-      JSON.stringify({ success: false, error: 'Please select a budget range.' }),
+      JSON.stringify({ success: false, error: 'Please select an estimated budget.' }),
       { status: 400, headers: responseHeaders }
     );
   }
@@ -322,7 +322,7 @@ export async function POST(request: Request) {
           <td style="padding: 10px 0; color: #111827; font-size: 14px;">${cleanProjectType}</td>
         </tr>
         <tr style="border-bottom: 1px solid #f3f4f6;">
-          <td style="padding: 10px 0; font-weight: bold; color: #4b5563; font-size: 13px;">Budget Range:</td>
+          <td style="padding: 10px 0; font-weight: bold; color: #4b5563; font-size: 13px;">Estimated Budget:</td>
           <td style="padding: 10px 0; color: #10b981; font-size: 14px; font-weight: 600;">${cleanBudget}</td>
         </tr>
         <tr style="border-bottom: 1px solid #f3f4f6;">

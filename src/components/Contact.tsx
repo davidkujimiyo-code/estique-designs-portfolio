@@ -20,7 +20,7 @@ export const Contact: React.FC<ContactProps> = ({ selectedService }) => {
     name: '',
     email: '',
     projectType: 'Brand Identity Design',
-    budget: '$500 - $1,000',
+    budget: '$150 – $300',
     timeline: '1 - 2 Weeks',
     message: '',
   });
@@ -151,7 +151,7 @@ export const Contact: React.FC<ContactProps> = ({ selectedService }) => {
         name: '',
         email: '',
         projectType: 'Brand Identity Design',
-        budget: '$500 - $1,000',
+        budget: '$150 – $300',
         timeline: '1 - 2 Weeks',
         message: '',
       });
@@ -408,7 +408,7 @@ export const Contact: React.FC<ContactProps> = ({ selectedService }) => {
                     {/* Budget */}
                     <div className="flex flex-col text-left">
                       <label htmlFor="budget" className="font-heading text-[10px] uppercase font-bold tracking-wider text-zinc-500 dark:text-zinc-400 mb-2">
-                        Budget Range
+                        Estimated Budget
                       </label>
                       <select
                         name="budget"
@@ -417,11 +417,12 @@ export const Contact: React.FC<ContactProps> = ({ selectedService }) => {
                         onChange={handleChange}
                         className="w-full px-4 py-3.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-[#181818] focus:outline-none focus:border-brand-emerald dark:focus:border-brand-gold text-zinc-900 dark:text-white text-xs transition-colors duration-300 cursor-pointer"
                       >
-                        <option value="<$500">&lt; $500</option>
-                        <option value="$500 - $1,000">$500 - $1,000</option>
-                        <option value="$1,000 - $3,500">$1,000 - $3,500</option>
-                        <option value="$3,500 - $5,000">$3,500 - $5,000</option>
-                        <option value="$5,000+">$5,000+</option>
+                        <option value="$15 – $75">$15 – $75</option>
+                        <option value="$75 – $150">$75 – $150</option>
+                        <option value="$150 – $300">$150 – $300</option>
+                        <option value="$300 – $500">$300 – $500</option>
+                        <option value="$500 – $800">$500 – $800</option>
+                        <option value="$800+">$800+</option>
                       </select>
                     </div>
 

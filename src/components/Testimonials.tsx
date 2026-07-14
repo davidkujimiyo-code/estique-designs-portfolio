@@ -22,13 +22,13 @@ export const Testimonials: React.FC = () => {
 
   const testimonials: TestimonialItem[] = [
     {
-      name: "Damiglow",
-      brand: "DAMIGLOW TRIBE",
-      role: "YouTube Content Creator",
+      name: "Damilola",
+      brand: "DAMIGLOW BRAND",
+      role: "YouTube Content Creator • Certified Marriage Counsellor • Author (Book Writer)",
       quote: "Estique Designs completely transformed my online presence. Esther created a stunning visual ecosystem—from my logo and YouTube thumbnails to flyer designs and custom book covers. This cohesive, premium look instantly elevated my brand, increased viewer trust, and helped me connect with my tribe with ultimate confidence. Her creative direction is truly top-tier.",
       projects: ["Book Cover Design", "YouTube Thumbnail Design", "Logo Design", "Brand Flyer Design"],
       tags: ["Book Cover", "YouTube Branding", "Logo Design", "Brand Flyer"],
-      initials: "DT"
+      initials: "DB"
     },
     {
       name: "Lois Amarachi",

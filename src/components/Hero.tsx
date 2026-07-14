@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence, useMotionValue, useTransform, useSpring } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { trackEvent } from '../utils/analytics';
+import headshot from '../assets/headshot.jpg';
 
 // Lazy-loaded luxury 3D scene
 const Hero3D = React.lazy(() =>
@@ -81,6 +82,113 @@ const PremiumFallback: React.FC<{ reduceMotion: boolean; isDark: boolean }> = ({
         </svg>
       </div>
     </div>
+  );
+};
+
+// Premium Light Mode Portrait Component
+// Used exclusively in Light Mode to render Esther's professional portrait with a luxury showroom aesthetic
+const LightModePortrait: React.FC<{ reduceMotion: boolean }> = ({ reduceMotion }) => {
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const springX = useSpring(mouseX, { stiffness: 60, damping: 25 });
+  const springY = useSpring(mouseY, { stiffness: 60, damping: 25 });
+  
+  const parallaxX = useTransform(springX, [-0.5, 0.5], [-12, 12]);
+  const parallaxY = useTransform(springY, [-0.5, 0.5], [-12, 12]);
+
+  useEffect(() => {
+    if (reduceMotion) return;
+    const handleMouseMove = (e: MouseEvent) => {
+      const x = (e.clientX / window.innerWidth) - 0.5;
+      const y = (e.clientY / window.innerHeight) - 0.5;
+      mouseX.set(x);
+      mouseY.set(y);
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, [mouseX, mouseY, reduceMotion]);
+
+  // Subtle floating motion (very slow)
+  const floatTransition = reduceMotion 
+    ? undefined 
+    : {
+        y: {
+          duration: 6,
+          repeat: Infinity,
+          repeatType: "reverse" as const,
+          ease: "easeInOut" as const
+        }
+      };
+
+  return (
+    <motion.div 
+      className="relative w-full h-full min-h-[400px] md:min-h-[580px] lg:min-h-[620px] rounded-3xl overflow-hidden bg-[#faf8f5] border border-zinc-200/40 shadow-2xl flex items-center justify-center"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      {/* Studio Ambient lighting layered gradients (Champagne & Soft Pearl) */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
+        {/* Warm champagne glow */}
+        <div className={`absolute -top-1/4 -right-1/4 w-[120%] h-[120%] bg-[radial-gradient(circle,_#efe6da_0%,_transparent_75%)] opacity-80 ${reduceMotion ? '' : 'animate-pulse-slow'}`} />
+        {/* Soft emerald light hint */}
+        <div className="absolute -bottom-1/4 -left-1/4 w-[90%] h-[90%] bg-[radial-gradient(circle,_rgba(16,185,129,0.06)_0%,_transparent_70%)]" style={{ mixBlendMode: 'plus-lighter' }} />
+        {/* Editorial overlay line art */}
+        <div className="absolute inset-8 border border-zinc-200/30 rounded-2xl pointer-events-none z-10" />
+      </div>
+
+      {/* Floating Gold & Emerald Dust Particles */}
+      {!reduceMotion && (
+        <div className="absolute inset-0 overflow-hidden pointer-events-none z-10">
+          {[...Array(8)].map((_, i) => {
+            const delay = i * 1.2;
+            const left = 20 + Math.random() * 60;
+            const size = 1.5 + Math.random() * 2.5;
+            return (
+              <div
+                key={i}
+                className="absolute bg-brand-gold/40 rounded-full animate-float-particle"
+                style={{
+                  left: `${left}%`,
+                  width: `${size}px`,
+                  height: `${size}px`,
+                  animationDelay: `${delay}s`,
+                  bottom: `-10px`,
+                }}
+              />
+            );
+          })}
+        </div>
+      )}
+
+      {/* Floating and Parallax Headshot Container */}
+      <motion.div 
+        className="relative z-10 w-[78%] max-w-[340px] aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl border border-zinc-200/50 bg-[#F7F5F0]"
+        style={{ x: parallaxX, y: parallaxY }}
+        animate={reduceMotion ? {} : { y: [0, -10, 0] }}
+        transition={floatTransition}
+      >
+        <img
+          src={headshot}
+          alt="Esther — Founder of Estique Designs"
+          className="w-full h-full object-cover select-none pointer-events-none"
+        />
+        {/* Premium Vignette & Studio Light Leak */}
+        <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/40 via-transparent to-transparent z-10" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(255,255,255,0.15)_0%,_transparent_60%)] z-10" />
+      </motion.div>
+
+      {/* Elegant overlapping light shapes in background */}
+      <div className="absolute bottom-6 right-6 z-20 pointer-events-none text-right">
+        <span className="font-heading text-[10px] text-zinc-400 uppercase tracking-widest leading-none block font-bold">
+          ESTIQUE DESIGNS
+        </span>
+        <span className="font-body text-[9px] text-zinc-300 uppercase tracking-widest block font-light mt-1">
+          CREATIVE DIRECTION
+        </span>
+      </div>
+    </motion.div>
   );
 };
 
@@ -289,34 +397,56 @@ export const Hero: React.FC = () => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.0, ease: [0.215, 0.61, 0.355, 1], delay: 0.35 }}
         >
-          {/* WebGL 3D Canvas */}
-          {webGLSupported ? (
-            <>
-              {/* Fallback & Loading Backdrop (Zero layout shift) */}
-              <div className={`absolute inset-0 w-full h-full transition-opacity duration-500 ${threeLoaded ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
-                <PremiumFallback reduceMotion={reduceMotion} isDark={isDark} />
-              </div>
+          <AnimatePresence mode="wait">
+            {isDark ? (
+              <motion.div
+                key="dark-hero-mode"
+                className="absolute inset-0 w-full h-full"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.4, ease: "easeInOut" }}
+              >
+                {webGLSupported ? (
+                  <>
+                    {/* Fallback & Loading Backdrop (Zero layout shift) */}
+                    <div className={`absolute inset-0 w-full h-full transition-opacity duration-500 ${threeLoaded ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+                      <PremiumFallback reduceMotion={reduceMotion} isDark={isDark} />
+                    </div>
 
-              {/* Real 3D Experience (Fades in dynamically) */}
-              <div className={`absolute inset-0 w-full h-full transition-opacity duration-700 ${threeLoaded ? 'opacity-100' : 'opacity-0'}`}>
-                {/* Ambient Breathing Studio Glows (Champagne & Emerald) */}
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
-                  <div className={`w-[450px] h-[450px] rounded-full bg-[radial-gradient(circle,_rgba(212,184,149,0.22)_0%,_rgba(212,184,149,0)_70%)] dark:bg-[radial-gradient(circle,_rgba(212,184,149,0.12)_0%,_rgba(212,184,149,0)_70%)] blur-[90px] ${reduceMotion ? '' : 'animate-pulse-slow'}`} />
-                  <div className={`absolute w-[350px] h-[350px] rounded-full bg-[radial-gradient(circle,_rgba(16,185,129,0.16)_0%,_rgba(16,185,129,0)_70%)] blur-[80px] ${reduceMotion ? '' : 'animate-pulse-slower'}`} style={{ mixBlendMode: 'plus-lighter' }} />
-                </div>
+                    {/* Real 3D Experience (Fades in dynamically) */}
+                    <div className={`absolute inset-0 w-full h-full transition-opacity duration-700 ${threeLoaded ? 'opacity-100' : 'opacity-0'}`}>
+                      {/* Ambient Breathing Studio Glows (Champagne & Emerald) */}
+                      <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
+                        <div className={`w-[450px] h-[450px] rounded-full bg-[radial-gradient(circle,_rgba(212,184,149,0.22)_0%,_rgba(212,184,149,0)_70%)] dark:bg-[radial-gradient(circle,_rgba(212,184,149,0.12)_0%,_rgba(212,184,149,0)_70%)] blur-[90px] ${reduceMotion ? '' : 'animate-pulse-slow'}`} />
+                        <div className={`absolute w-[350px] h-[350px] rounded-full bg-[radial-gradient(circle,_rgba(16,185,129,0.16)_0%,_rgba(16,185,129,0)_70%)] blur-[80px] ${reduceMotion ? '' : 'animate-pulse-slower'}`} style={{ mixBlendMode: 'plus-lighter' }} />
+                      </div>
 
-                <React.Suspense fallback={null}>
-                  <Hero3D
-                    onLoaded={() => setThreeLoaded(true)}
-                    fallback={<PremiumFallback reduceMotion={reduceMotion} isDark={isDark} />}
-                  />
-                </React.Suspense>
-              </div>
-            </>
-          ) : (
-            /* Pure Premium Fallback (No WebGL available or reduced motion active) */
-            <PremiumFallback reduceMotion={reduceMotion} isDark={isDark} />
-          )}
+                      <React.Suspense fallback={null}>
+                        <Hero3D
+                          onLoaded={() => setThreeLoaded(true)}
+                          fallback={<PremiumFallback reduceMotion={reduceMotion} isDark={isDark} />}
+                        />
+                      </React.Suspense>
+                    </div>
+                  </>
+                ) : (
+                  <PremiumFallback reduceMotion={reduceMotion} isDark={isDark} />
+                )}
+              </motion.div>
+            ) : (
+              <motion.div
+                key="light-hero-mode"
+                className="absolute inset-0 w-full h-full"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.4, ease: "easeInOut" }}
+              >
+                <LightModePortrait reduceMotion={reduceMotion} />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </motion.div>
       </div>
     </section>

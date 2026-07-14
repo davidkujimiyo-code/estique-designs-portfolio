@@ -13,6 +13,7 @@ import { PinterestShowcase } from './components/PinterestShowcase';
 import { Contact } from './components/Contact';
 import { CareerProfile } from './components/CareerProfile';
 import { Footer } from './components/Footer';
+import { SchemaMarkup } from './components/SchemaMarkup';
 
 import { ProjectDetailsModal } from './components/ProjectDetailsModal';
 import type { PortfolioItem } from './data/portfolio';
@@ -103,6 +104,9 @@ function App() {
 
   return (
     <>
+      {/* Schema.org Structured JSON-LD Markup */}
+      <SchemaMarkup />
+
       {/* Loading preloader splash screen */}
       <PageLoader onComplete={() => setIsLoading(false)} />
 
