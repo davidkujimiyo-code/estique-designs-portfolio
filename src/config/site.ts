@@ -1,22 +1,12 @@
 // Detect the site URL dynamically based on Vite/Vercel environments
 const getSiteUrl = (): string => {
-  // 1. Check if VITE_SITE_URL environment variable is provided (loaded from .env.production/.env.development or dashboard overrides)
+  // Check if VITE_SITE_URL environment variable is provided (loaded from .env.production/.env.development or dashboard overrides)
   const envUrl = import.meta.env.VITE_SITE_URL;
   if (envUrl && envUrl.trim() !== '') {
     return envUrl.replace(/\/$/, ""); // strip trailing slash
   }
 
-  // 2. Check if we are running in a Vercel Preview deployment client-side
-  if (typeof window !== 'undefined' && window.location.hostname.includes('vercel.app')) {
-    return `https://${window.location.hostname}`;
-  }
-
-  // 3. Graceful client-side fallback during runtime
-  if (typeof window !== 'undefined' && window.location?.origin) {
-    return window.location.origin;
-  }
-
-  // 4. Default production fallback
+  // Default production fallback
   return "https://estique-designs-portfolio.vercel.app";
 };
 
@@ -30,8 +20,8 @@ export const siteConfig = {
   logo: `${baseUrl}/logo.png`,
   favicon: `${baseUrl}/favicon.ico`,
   appleTouchIcon: `${baseUrl}/apple-touch-icon.png`,
-  ogImage: `${baseUrl}/og-image.jpg`,
-  twitterImage: `${baseUrl}/og-image.jpg`,
+  ogImage: `${baseUrl}/og-image.jpg?v=1`,
+  twitterImage: `${baseUrl}/og-image.jpg?v=1`,
   organizationImage: `${baseUrl}/logo.png`,
   language: "en-US",
   author: "Estique Designs",
@@ -69,7 +59,7 @@ export const siteConfig = {
   description: "Estique Designs is a premium design studio in Nigeria specializing in strategic brand identity, logo design, luxury book cover design, social media graphics, and church media design.",
   url: baseUrl,
   logoUrl: `${baseUrl}/logo.png`,
-  heroImage: `${baseUrl}/og-image.jpg`,
+  heroImage: `${baseUrl}/og-image.jpg?v=1`,
   services: [
     {
       id: "service-brand-identity",

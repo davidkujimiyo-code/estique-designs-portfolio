@@ -2,15 +2,11 @@ import fs from 'fs';
 import path from 'path';
 
 const getSiteUrl = () => {
-  // 1. Check process.env.VITE_SITE_URL (loaded from environment files or Vercel dashboard overrides)
+  // Check process.env.VITE_SITE_URL (loaded from environment files or Vercel dashboard overrides)
   if (process.env.VITE_SITE_URL) {
     return process.env.VITE_SITE_URL;
   }
-  // 2. Check process.env.VERCEL_URL (set by Vercel system during preview builds)
-  if (process.env.VERCEL_URL) {
-    return `https://${process.env.VERCEL_URL}`;
-  }
-  // 3. Fallback to production default
+  // Default production fallback
   return "https://estique-designs-portfolio.vercel.app";
 };
 
